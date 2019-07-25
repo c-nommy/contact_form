@@ -1,8 +1,14 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    header('Location: index.html');
-}
 
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        header('Location: index.html');
+    }
+
+    require_once('function.php');
+
+    $nickname = $_POST['nickname'];
+    $email = $_POST['email'];
+    $content = $_POST['content'];
 
 ?>
 <!DOCTYPE html>
@@ -13,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 </head>
 <body>
     <h1>お問い合わせありがとうございました！</h1>
-
+    <p><?php echo h($nickname); ?></p>
+    <p><?php echo h($email); ?></p>
+    <p><?php echo h($content); ?></p>
 </body>
 </html>

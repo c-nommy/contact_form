@@ -1,8 +1,10 @@
 <?php
+
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         header('Location: index.html');
-        exit;
     }
+
+    require_once('function.php');
 
     $nickname = $_POST['nickname'];
     $email = $_POST['email'];
@@ -13,7 +15,7 @@
     } else {
         $nickname_result = 'ようこそ、' . $nickname .'様';
     }
-    
+
     if ($email == '') {
         $email_result = 'メールアドレスが入力されていません。';
     } else {
@@ -34,22 +36,18 @@
 </head>
 <body>
     <h1>入力内容確認</h1>
-    <p><?php echo $nickname_result; ?></p>
-    <p><?php echo $email_result; ?></p>
-    <p><?php echo $content_result; ?></p>
+    <p><?php echo h($nickname_result); ?></p>
+    <p><?php echo h($email_result); ?></p>
+    <p><?php echo h($content_result); ?></p>
+
     <form method="POST" action="thanks.php">
-        <input type="hidden" name="nickname" value="<?php echo $nickname; ?>">
-        <input type="hidden" name="email" value="<?php echo $email; ?>">
-        <input type="hidden" name="content" value="<?php echo $content; ?>">
-        <input type="button" value="戻る" onclick="history.back()">
+        <input type="hidden" name="nickname" value="<?php echo h($nickname); ?>">
+        <input type="hidden" name="email" value="<?php echo h($email); ?>">
+        <input type="hidden" name="content" value="<?php echo h($content); ?>">
+        <button type="button" onclick="history.back()">戻る</button>
         <?php if ($nickname != '' && $email != '' && $content != ''): ?>
-            <input type="submit" value="OK">
+            <button type="submit">OK</button>
         <?php endif; ?>
     </form>
-<?php
-     if ($nickname != '' && $email != '' && $content != '') {
-      }
-
-?>
 </body>
 </html>
